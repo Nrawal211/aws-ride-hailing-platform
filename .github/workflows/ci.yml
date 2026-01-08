@@ -1,0 +1,34 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    name: Validate Repository
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Display repository structure
+        run: |
+          echo "Listing project structure:"
+          ls -R
+
+      - name: Validate required directories
+        run: |
+          echo "Validating project structure..."
+          test -d services
+          test -d infra
+          test -d ci
+          test -d docs
+          test -d scripts
+          test -d .github/workflows
+          echo "All required directories exist."
